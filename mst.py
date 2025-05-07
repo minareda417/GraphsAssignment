@@ -71,7 +71,7 @@ class MSTGraph:
             mst_weight += key
 
             for vertex, weight in self.graph[u]:
-                if  visited[u] and keys[vertex] > weight:
+                if  not visited[vertex] and keys[vertex] > weight:
                     parents[vertex] = u
                     keys[vertex] = weight
                     heapq.heappush(pq, (keys[vertex], vertex))
