@@ -30,7 +30,7 @@ class MSTGraph:
         for edge in edges:
             self.add_edge(edge[0], edge[1], edge[2])
 
-    def delete_vertex(self, vertex: str) -> None:
+    def remove_vertex(self, vertex: str) -> None:
         if vertex not in self.graph:
             print(f"Vertex {vertex} doesn't exist.")
             return
@@ -85,14 +85,60 @@ class MSTGraph:
 
         return mst_weight
 
+
+def main():
+    print("Prim Algorithm")
+    graph = MSTGraph()
+    while True:
+        print("\nChoose operation:\n1.Add vertex\n2.Add vertices\n3.Add edge"
+              "\n4.Add edges\n5.Delete vertex\n6.Delete edge\n7.Prim\n8.Exit")
+        try:
+            op = int(input())
+            match op:
+                case 1:
+                    vertex = input("Enter vertex's name: ")
+                    graph.add_vertex(vertex)
+                case 2:
+                    vertices = input("Enter vertices names: ").split()
+                    graph.add_vertices(vertices)
+                case 3:
+                    vertex1 = input("Enter first vertex's name: ")
+                    vertex2 = input("Enter Second vertex's name: ")
+                    weight = int(input("Enter edge's weight: "))
+                    graph.add_edge(vertex1, vertex2, weight)
+                case 4:
+                    edges = []
+                    while True:
+                        vertex1 = input("Enter first vertex's name: ")
+                        vertex2 = input("Enter Second vertex's name: ")
+                        weight = int(input("Enter edge's weight: "))
+                        edge = (vertex1, vertex2, weight)
+                        edges.append(edge)
+                        cont = input("Do you want to add another edge? [y/n]: ")
+                        while cont.lower() not in ['y', 'n']:
+                            cont = input("Do you want to add another edge? [y/n]: ")
+                        if cont.lower() == 'n':
+                            graph.add_edges(edges)
+                            break
+                case 5:
+                    vertex = input("Enter vertex's name: ")
+                    graph.remove_vertex(vertex)
+                case 6:
+                    vertex1 = input("Enter first vertex's name: ")
+                    vertex2 = input("Enter Second vertex's name: ")
+                    graph.remove_edge(vertex1, vertex2)
+                case 7:
+                    root = input("Enter root's name: ")
+                    print(f"MST weight = {graph.prim(root)}")
+                case 8:
+                    print("Thank you")
+                    break
+                case _:
+                    print("Invalid option. Please choose a number between 1 and 8.")
+        except ValueError:
+            print("Please enter a valid number.")
+
+
+
 if __name__== "__main__":
-    g = MSTGraph()
-    g.add_vertices(['a', 'b', 'c', 'd', 'e'])
-    g.add_edge('a', 'b', 2)
-    g.add_edge('a', 'd', 6)
-    g.add_edge('b', 'c', 3)
-    g.add_edge('b', 'd', 8)
-    g.add_edge('b', 'e', 5)
-    g.add_edge('c', 'e', 7)
-    g.add_edge('d', 'e', 9)
-    print(g.prim('a'))
+    main()
