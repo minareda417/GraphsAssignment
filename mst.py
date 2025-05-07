@@ -3,14 +3,12 @@ import heapq
 class MSTGraph:
     def __init__(self):
         self.graph = {}
-        self.vertices_count = 0
 
     def add_vertex(self, vertex: str) -> None:
         if vertex in self.graph:
             print(f'Vertex {vertex} already exists.')
             return
         self.graph[vertex] = []
-        self.vertices_count += 1
 
     def add_vertices(self, vertices:[str]) -> None:
         for vertex_name in vertices:
@@ -39,7 +37,6 @@ class MSTGraph:
             for edge in self.graph[key]:
                 if edge[0] == vertex:
                     self.graph[key].remove(edge)
-        self.vertices_count -= 1
 
     def remove_edge(self, vertex1: str, vertex2: str) -> None:
         vertices = [vertex1, vertex2]
